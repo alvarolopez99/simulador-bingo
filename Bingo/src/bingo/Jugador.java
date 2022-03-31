@@ -4,6 +4,7 @@
  */
 package bingo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +15,26 @@ public class Jugador {
     
     private String name;
     private int puntos;
-    private List<Carton> cartones;
+    private ArrayList<Carton> cartones;
+    
+    public Jugador(String name){
+        this.name = name;
+        puntos = 0;
+        cartones = new ArrayList<Carton>();
+    }
+    
+    public void asignarCartones(int numCartones){
+        for(int i=0; i<numCartones; i++){
+            cartones.add(new Carton());
+        }
+    }
+    
+    public String getName(){
+        return this.name;
+    }
+    
+    public int getPuntos(){
+        return this.puntos;
+    }
     
 }
