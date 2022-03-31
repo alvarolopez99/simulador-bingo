@@ -16,11 +16,63 @@ import java.util.Random;
 public class Carton {
     private ArrayList<Integer> carton;
     
+    Linea LineaArriba = new Linea();
+    Linea LineaMedio = new Linea();
+    Linea LineaAbajo = new Linea();
+    
     public Carton(){
-        carton = new ArrayList();
-        generarCarton();
+        
+        // Introducir metodos para generar las lineas
+        
+        //Linea LineaArriba = new Linea();
+        //Linea LineaMedio = new Linea();
+        //Linea LineaAbajo = new Linea();
+        //carton = new ArrayList();
+        //generarCarton();
     }
     
+    
+    
+    
+    
+    
+    
+    public void GenerarPosicionesCarton(){
+
+        LineaArriba = LineaArriba.GenerarPosicionesSuperiores(LineaArriba);
+        // LineaArriba.PintarLinea(LineaArriba);
+        
+        LineaMedio = LineaMedio.GenerarPosicionesMedias(LineaMedio);
+        // LineaMedio.PintarLinea(LineaMedio);
+        
+        
+        LineaAbajo = LineaAbajo.GenerarPosicionesInferiores(LineaArriba, LineaMedio ,LineaAbajo);
+        // LineaAbajo.PintarLinea(LineaAbajo);
+        
+        
+        
+        LineaArriba = LineaArriba.AsignarNumerosLineaArriba(LineaArriba);
+        LineaArriba.PintarLinea(LineaArriba);
+        
+        LineaMedio = LineaMedio.AsignarNumerosLineaMedio(LineaMedio);
+        LineaMedio.PintarLinea(LineaMedio);
+        
+        LineaAbajo = LineaAbajo.AsignarNumerosLineaAbajo(LineaAbajo);
+        LineaAbajo.PintarLinea(LineaAbajo);
+        System.out.println("-----------------------------------------------------------------------------------------");
+    }
+    
+    
+    
+}
+    
+    
+    
+    
+    
+    
+    
+    /*
     public void generarCarton(){
         //int[] linea = new int[9]; 
         //ArrayList numerosInsertar = new ArrayList();
@@ -50,7 +102,8 @@ public class Carton {
             }
         }
     }
-    
+    */
+    /*
     public String toString(){
         String cadena = "|----|----|----|----|----|----|----|----|----|\n";
         for(int i = 0; i < carton.size(); i++){
@@ -67,4 +120,4 @@ public class Carton {
         return cadena;
     }   
 }
-
+*/
