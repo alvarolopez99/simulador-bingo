@@ -5,8 +5,10 @@
 package bingo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
 
 /**
@@ -14,11 +16,16 @@ import java.util.Random;
  * @author alvar
  */
 public class Carton {
-    private ArrayList<Integer> carton;
+    
+    //private ArrayList<Integer> carton;
     
     Linea LineaArriba = new Linea();
     Linea LineaMedio = new Linea();
     Linea LineaAbajo = new Linea();
+
+    
+    
+    Queue<Integer> NumerosTachadosCarton = new LinkedList<Integer>();
     
     public Carton(){
         
@@ -29,15 +36,94 @@ public class Carton {
         //Linea LineaAbajo = new Linea();
         //carton = new ArrayList();
         //generarCarton();
+        GenerarCarton();
+        PintarCarton();
     }
     
     
     
     
+    public String[] RevisarLineas(){
+        
+        //boolean HayLinea = false;
+        
+        //HayLinea = (LineaArriba.ComprobarLinea(LineaArriba) || LineaMedio.ComprobarLinea(LineaMedio) || LineaAbajo.ComprobarLinea(LineaAbajo));
+        
+        String[] ComprobacionLinea = new String[2];
+        
+        boolean HayLinea1 = false;
+        boolean HayLinea2 = false;
+        boolean HayLinea3 = false;
+
+        HayLinea1 = LineaArriba.ComprobarLinea();
+        HayLinea2 = LineaMedio.ComprobarLinea();
+        HayLinea3 = LineaAbajo.ComprobarLinea();
+        
+        ComprobacionLinea[0] = String.valueOf(HayLinea1 || HayLinea2 || HayLinea3);
+        
+        if(HayLinea1){
+         ComprobacionLinea[1] = LineaArriba.PintarSecuenciaLinea();
+        }
+        
+        if(HayLinea2){
+         ComprobacionLinea[1] = LineaMedio.PintarSecuenciaLinea();
+        }
+        
+        if(HayLinea3){
+         ComprobacionLinea[1] = LineaAbajo.PintarSecuenciaLinea();
+        }
+        
+        
+        return ComprobacionLinea;
+    }
     
+    public String[] RevisarCarton() {
+        
+        String[] array = new String[2];
+        
+        boolean HayLinea1 = false;
+        boolean HayLinea2 = false;
+        boolean HayLinea3 = false;
+
+        boolean HayBingo = false;
+
+        HayLinea1 = LineaArriba.ComprobarLinea();
+        HayLinea2 = LineaMedio.ComprobarLinea();
+        HayLinea3 = LineaAbajo.ComprobarLinea();
+        
+        array[0] = String.valueOf(HayLinea1 && HayLinea2 && HayLinea3);
+        
+        if (HayLinea1 && HayLinea2 && HayLinea3) {
+
+            array[0] = String.valueOf(HayLinea1 && HayLinea2 && HayLinea3);
+            array[1] = PintarSecuenciaBingo();
+ 
+        }
+
+        //return (HayLinea1 && HayLinea2 && HayLinea3);
+        return array;
+    }
+
+    public boolean TacharNumero(int Numero) {
+
+        boolean NumeroTachado = false;
+
+        NumeroTachado = (LineaArriba.TacharNumero(Numero) || LineaMedio.TacharNumero(Numero) || LineaAbajo.TacharNumero(Numero));
+
+        if (NumeroTachado) {
+            NumerosTachadosCarton.add(Numero);
+        }
+
+        return NumeroTachado;
+
+    }
     
+    public String ObtenerSecuenciaLinea(){
     
-    public void GenerarPosicionesCarton(){
+    return "";
+    }
+    
+    public void GenerarCarton(){
 
         LineaArriba = LineaArriba.GenerarPosicionesSuperiores(LineaArriba);
         // LineaArriba.PintarLinea(LineaArriba);
@@ -52,16 +138,39 @@ public class Carton {
         
         
         LineaArriba = LineaArriba.AsignarNumerosLineaArriba(LineaArriba);
-        LineaArriba.PintarLinea(LineaArriba);
+       
         
         LineaMedio = LineaMedio.AsignarNumerosLineaMedio(LineaMedio);
-        LineaMedio.PintarLinea(LineaMedio);
+       
         
         LineaAbajo = LineaAbajo.AsignarNumerosLineaAbajo(LineaAbajo);
-        LineaAbajo.PintarLinea(LineaAbajo);
-        System.out.println("-----------------------------------------------------------------------------------------");
+        
     }
     
+    public String PintarSecuenciaBingo() {
+
+        String SecuenciaLinea = "";
+
+        Iterator<Integer> it = NumerosTachadosCarton.iterator();
+
+        while (it.hasNext()) {
+            SecuenciaLinea = SecuenciaLinea + it.next();
+            if (it.hasNext()) {
+                SecuenciaLinea = SecuenciaLinea + ", ";
+            }
+
+        }
+        
+        return SecuenciaLinea;
+    }
+    
+    public void PintarCarton(){
+    
+     LineaArriba.PintarLinea(LineaArriba);
+     LineaMedio.PintarLinea(LineaMedio);
+     LineaAbajo.PintarLinea(LineaAbajo);
+     System.out.println("-----------------------------------------------------------------------------------------");
+    }
     
     
 }

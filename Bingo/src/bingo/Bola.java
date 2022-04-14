@@ -8,11 +8,16 @@ package bingo;
  *
  * @author alvar
  */
-public class BolaAparecida {
+public class Bola {
     private int numero;
     
-    public BolaAparecida(int numero){
+    
+    public Bola(int numero){
         this.numero = numero;
+    }
+    
+    public Bola(){
+
     }
     
     public String toString(){

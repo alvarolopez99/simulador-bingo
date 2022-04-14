@@ -21,14 +21,14 @@ public class Bombo {
         }
     }
     
-    BolaAparecida sacarNumero(){
+    public Bola sacarNumero(){
         int random = (int) Math.floor(Math.random()*(90)+1);
         while(!bombo.contains(random)){
             random = (int) Math.floor(Math.random()*(90)+1);
         }
         bombo.remove(random);
         //Retornar objeto correcto
-        return new BolaAparecida(random);
+        return new Bola(random);
     }
     
     public String toString(){

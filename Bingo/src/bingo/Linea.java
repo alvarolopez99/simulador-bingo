@@ -1,22 +1,40 @@
 package bingo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Set;
 
 /**
  *
  * @author alvar
  */
+
 public class Linea {
-    private ArrayList<Integer> posHuecos;
-    private ArrayList<Integer> numeros;
-    private ArrayList<Integer> linea;
     
-     int Posiciones[] = new int[9];
+    
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    
+    //ArrayList<Integer> posHuecos;
+    //ArrayList<Integer> numeros;
+    //ArrayList<Integer> linea;
+    
+    Set<Integer> ConjuntoNumerosLinea;
+    Queue<Integer> NumerosTachadosLinea;
+    
+    int Posiciones[] = new int[9];
 
      
     public Linea(){
         
         int Posiciones[] = new int[9];
+        
+        ConjuntoNumerosLinea = new HashSet<Integer>();
+        NumerosTachadosLinea = new LinkedList<Integer>();
+        
         
         /*posHuecos = new ArrayList();
         numeros = new ArrayList();
@@ -26,8 +44,7 @@ public class Linea {
         }
     
     
-    // Determina las posiciones en las que habrá un número y en las que habrá
-    // un hueco
+    // Determinar las posiciones en las que habrá un número y en las que habrá un hueco
 
     public Linea GenerarPosicionesSuperiores(Linea LineaArriba) {
 
@@ -120,17 +137,9 @@ public class Linea {
      
      }
     
-    
-    
-    
-    
-    
-     
-     
-     
-    
+
     // Determina en que posiciones de una linea inferior de un carton tienen numero o hueco
-     // en funcion de las lineas superiores a ella (lineas 1 y 2 de un carton de 3 lineas)
+    // en funcion de las lineas superiores a ella (lineas 1 y 2 de un carton de 3 lineas)
      
      // ***** REVISAR ALEATORIEDAD *****
     
@@ -165,17 +174,22 @@ public class Linea {
     }
 
     
+    
+    // Asignación de numeros a una linea
+    
+    
     public Linea AsignarNumerosLineaArriba(Linea LineaArriba) {
 
         int sup = 3;
-        int inf = 0;
+        int inf = 1;
 
         for (int i = 0; i < 9; i++) {
 
             if (LineaArriba.Posiciones[i] == 1) {
 
                 LineaArriba.Posiciones[i] = (int) (Math.random() * (sup - inf + 1)) + inf;
-
+                ConjuntoNumerosLinea.add( LineaArriba.Posiciones[i]);
+                
             }
 
             sup = sup + 10;
@@ -196,7 +210,7 @@ public class Linea {
             if (LineaMedio.Posiciones[i] == 1) {
 
                 LineaMedio.Posiciones[i] = (int) (Math.random() * (sup - inf + 1)) + inf;
-
+                ConjuntoNumerosLinea.add(LineaMedio.Posiciones[i]);
             }
 
             sup = sup + 10;
@@ -220,7 +234,7 @@ public class Linea {
             if (LineaAbajo.Posiciones[i] == 1) {
 
                 LineaAbajo.Posiciones[i] = (int) Math.floor(Math.random() * (sup - inf + 1)) + inf;
-
+                ConjuntoNumerosLinea.add(LineaAbajo.Posiciones[i]);
             }
 
         }
@@ -229,30 +243,108 @@ public class Linea {
     }
 
     
+    public boolean ComprobarLinea() {
+
+        boolean LineaTachada = false;
+
+        if (ConjuntoNumerosLinea.isEmpty()) {
+
+            LineaTachada = true;
+        }
+
+        return LineaTachada;
+    }
+
+
+    public boolean TacharNumero(int Numero) {
+
+        boolean NumeroTachado = false;
+        if (ConjuntoNumerosLinea.contains(Numero)) {
+            ConjuntoNumerosLinea.remove(Numero);
+            NumerosTachadosLinea.add(Numero);
+            NumeroTachado = true;
+        }
+
+        return NumeroTachado;
+
+    }
+    
+    public String PintarSecuenciaLinea() {
+
+        String SecuenciaLinea = "";
+
+        Iterator<Integer> it = NumerosTachadosLinea.iterator();
+
+        while (it.hasNext()) {
+            SecuenciaLinea = SecuenciaLinea + it.next();
+            if (it.hasNext()) {
+                SecuenciaLinea = SecuenciaLinea + ", ";
+            }
+
+        }
+        
+        return SecuenciaLinea;
+    }
+
+    
+    
+    
+    //System.out.println(ANSI_RED + "Texto de color rojo" + ANSI_RESET);
+
+    
     public void PintarLinea (Linea Linea){
 
-        
-         System.out.println("-----------------------------------------------------------------------------------------");
-        
-        for (int i = 0; i < Linea.Posiciones.length; i++){
-        
-            if ( Linea.Posiciones[i] > 9){
-            
-            System.out.print(" | ");
-            System.out.print(" " + Linea.Posiciones[i] + " ");
-            System.out.print(" | ");
-            
+        System.out.println("-----------------------------------------------------------------------------------------");
+       
+        for (int i = 0; i < Linea.Posiciones.length; i++) {
+
+            if (NumerosTachadosLinea.contains(Linea.Posiciones[i])) {
+                if (Linea.Posiciones[i] > 9) {
+
+                    System.out.print(" | ");
+                    System.out.print(" " + ANSI_RED + Linea.Posiciones[i] + ANSI_RESET + " ");
+                    System.out.print(" | ");
+
+                } else if (Linea.Posiciones[i] <= 9 && Linea.Posiciones[i] > 0) {
+
+                    System.out.print(" |  ");
+                    System.out.print(" " + ANSI_RED + Linea.Posiciones[i] + ANSI_RESET + " ");
+                    System.out.print(" | ");
+
+                } else {
+
+                    System.out.print(" |");
+                    System.out.print("      ");
+                    System.out.print("| ");
+                    
+                }
+
             } else {
-            
-            System.out.print(" |  ");
-            System.out.print(" " + Linea.Posiciones[i] + " ");
-            System.out.print(" | ");
-            
+                
+                 if (Linea.Posiciones[i] > 9) {
+
+                    System.out.print(" | ");
+                    System.out.print(" " + Linea.Posiciones[i] + " ");
+                    System.out.print(" | ");
+
+                } else if (Linea.Posiciones[i] <= 9 && Linea.Posiciones[i] > 0) {
+
+                    System.out.print(" |  ");
+                    System.out.print(" " + Linea.Posiciones[i] + " ");
+                    System.out.print(" | ");
+
+                } else {
+
+                    System.out.print(" |");
+                    System.out.print("      ");
+                    System.out.print("| ");
+
+                }
+                
             }
-            
-            
         }
-     System.out.print("\n");
+
+        System.out.print("\n");
     
     }
 

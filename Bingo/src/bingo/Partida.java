@@ -4,15 +4,45 @@
  */
 package bingo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author alvar
  */
 public class Partida {
-    
-    Bombo bombo;
+    private ArrayList<Ronda> listaRondas;
+    private ArrayList<Jugador> listaJugadores;
     
     public Partida(){
-        bombo = new Bombo();
+        
+        listaRondas = new ArrayList<>();
+        listaJugadores = new ArrayList<>();
+        
+        Configuracion conf = new Configuracion();
+        // JUGADORES
+        // CONFIGURACION
+
     }
+    
+    public void añadirRondas(int numero){
+        for(int i=0; i<numero; i++){
+            listaRondas.add(new Ronda());
+        }
+    }
+    
+    public void añadirJugadores(ArrayList<Jugador> j){
+        listaJugadores = j;
+    }
+    
+    
+    public ArrayList<Jugador> getJugadores(){
+        
+        return listaJugadores;
+    }
+
+    public ArrayList<Ronda> getListaRondas() {
+        return listaRondas;
+    }
+    
 }
