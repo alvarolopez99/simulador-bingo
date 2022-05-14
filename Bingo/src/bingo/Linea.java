@@ -302,13 +302,13 @@ public class Linea {
                 if (Linea.Posiciones[i] > 9) {
 
                     System.out.print(" | ");
-                    System.out.print(" " + ANSI_RED + Linea.Posiciones[i] + ANSI_RESET + " ");
+                    System.out.print("[" + Linea.Posiciones[i] + "]");
                     System.out.print(" | ");
 
                 } else if (Linea.Posiciones[i] <= 9 && Linea.Posiciones[i] > 0) {
 
                     System.out.print(" |  ");
-                    System.out.print(" " + ANSI_RED + Linea.Posiciones[i] + ANSI_RESET + " ");
+                    System.out.print("[" + Linea.Posiciones[i] + "]");
                     System.out.print(" | ");
 
                 } else {

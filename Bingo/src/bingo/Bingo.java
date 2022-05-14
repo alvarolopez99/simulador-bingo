@@ -56,20 +56,20 @@ public class Bingo {
         
         /* Creamos la partida y preguntamos cuantas rondas tiene la partida */
         
-        System.out.println("Â¡Bienvenid@ al bingo!");
-        System.out.println("Â¿Cuantas rondas quieres jugar?: ");
+        System.out.println("¡Bienvenid@ al bingo!");
+        System.out.println("¿Cuantas rondas quieres jugar?: ");
         numRondas =  Integer.parseInt(entrada.nextLine());
         
         while(numRondas < 1) numRondas = entrada.nextInt();
         configuracion.setNumPartidas(numRondas);
         
-        //tandaPartidas.aÃ±adirPartidas(numPartidas);
+        //tandaPartidas.añadirPartidas(numPartidas);
         /*****************************************************************************/
         
         
         /* Pregunta cuantos jugadores quieres en la partida y crea esos jugadores */
         
-        System.out.println("Â¿Cuantos jugadores quieres que haya en la partida?: ");
+        System.out.println("¿Cuantos jugadores quieres que haya en la partida?: ");
         numJugadores =  Integer.parseInt(entrada.nextLine());
         while(numJugadores < 2 || numJugadores > 4) numJugadores = entrada.nextInt();
         
@@ -82,11 +82,11 @@ public class Bingo {
             jugadores.add(new Jugador(nombre));
         }
         
-        Partida.aÃ±adirJugadores(jugadores);
-        Partida.aÃ±adirRondas(numRondas);
+        Partida.anadirJugadores(jugadores);
+        Partida.anadirRondas(numRondas);
         /* Pregunta cuantos cartones se quieren generar para cada jugador */
        
-        System.out.println("Â¿Cuantos cartones quieres generar para cada jugador?: ");
+        System.out.println("¿Cuantos cartones quieres generar para cada jugador?: ");
         numCartones = entrada.nextInt();
 
         while(numCartones < 1) numCartones = entrada.nextInt();
@@ -96,12 +96,12 @@ public class Bingo {
         
         /* Pregunta cuantos puntos se otorgan por cada linea y bingo */
         
-        System.out.println("Â¿Cuantos puntos se obtienen al cantar linea?: ");
+        System.out.println("¿Cuantos puntos se obtienen al cantar linea?: ");
         int puntosLinea = entrada.nextInt();
         while(puntosLinea < 1) puntosLinea = entrada.nextInt();
         configuracion.setPuntosLinea(puntosLinea);
         
-        System.out.println("Â¿Cuantos puntos se obtienen al cantar bingo?: ");
+        System.out.println("¿Cuantos puntos se obtienen al cantar bingo?: ");
         int puntosBingo = entrada.nextInt();
         while(puntosBingo < configuracion.getPuntosLinea()) puntosLinea = entrada.nextInt();
         configuracion.setPuntosBingo(puntosBingo);
@@ -109,7 +109,7 @@ public class Bingo {
         /*****************************************************************************/
         
         System.out.println("La configuracion de las partidas es la siguiente: ");
-        System.out.println("Se jugarÃ¡ una partida con " + configuracion.getNumPartidas() + " rondas");
+        System.out.println("Se jugará una partida con " + configuracion.getNumPartidas() + " rondas");
         System.out.println("Jugaran " + configuracion.getNumJugadores() + " jugadores");
         System.out.println("Cada jugador dispone de " + configuracion.getNumCartonesPorJugador() + " cartones");
         System.out.println("Si alguien canta linea se le otorgaran " + configuracion.getPuntosLinea() + " puntos");
@@ -151,17 +151,17 @@ public class Bingo {
             while (!BingoCantado) {
 
                 BolaAparecida = Bombo.sacarNumero();
-                Partida.getListaRondas().get(i).AÃ±adirBolaAparecida(BolaAparecida);
+                Partida.getListaRondas().get(i).AnadirBolaAparecida(BolaAparecida);
                 
                 ContadorBolasAparecidas++;
                 
                 
                 
                 System.out.println("\n");
-                System.out.println(ANSI_CYAN + "Bola nÃºmero: " + BolaAparecida.toString() + ANSI_RESET);
+                System.out.println("Bola número: " + BolaAparecida.toString());
                 
                 System.out.println("\n");
-                System.out.println("Hasta el momento han aparecido " +  ContadorBolasAparecidas + " bolas que son las siguientes:" + ANSI_CYAN + Ronda.toStringBolasAparecidas() + ANSI_RESET) ;
+                System.out.println("Hasta el momento han aparecido " +  ContadorBolasAparecidas + " bolas que son las siguientes:" + Ronda.toStringBolasAparecidas()) ;
 
                 
                 
@@ -176,7 +176,7 @@ public class Bingo {
 
                         Jugador jugador =  Partida.getJugadores().get(j);
 
-                        System.out.println("El jugador " + jugador.getName() + " va a comprobar el nÃºmero " + NumeroAparecido + " este es su cartÃ³n: ");
+                        System.out.println("El jugador " + jugador.getName() + " va a comprobar el número " + NumeroAparecido + " este es su cartón: ");
 
                         jugador.MostrarCartones();
 
@@ -185,13 +185,13 @@ public class Bingo {
                         if (SeTachaNumero) {
 
                             System.out.println("\n");
-                            System.out.println("El jugador " + jugador.getName() + " tacha el nÃºmero " + NumeroAparecido + " este es su cartÃ³n: ");
+                            System.out.println("El jugador " + jugador.getName() + " tacha el número " + NumeroAparecido + " este es su cartón: ");
                             jugador.MostrarCartones();
 
                             System.out.println("\n");
-                            System.out.println(ANSI_RED + "------------------" + ANSI_RESET);
-                            System.out.println(ANSI_RED + "| NUMERO TACHADO |" + ANSI_RESET);
-                            System.out.println(ANSI_RED + "------------------" + ANSI_RESET);
+                            System.out.println("------------------");
+                            System.out.println("| NUMERO TACHADO |");
+                            System.out.println("------------------");
                             System.out.println("\n");
                         }
 
@@ -203,13 +203,13 @@ public class Bingo {
                         if (HayLinea && LineaCantada == false) {
 
                             System.out.println("\n");
-                            System.out.println(ANSI_GREEN + "-----------------" + ANSI_RESET);
-                            System.out.println(ANSI_GREEN + "|  CANTO LINEA  |" + ANSI_RESET );
-                            System.out.println(ANSI_GREEN + "-----------------" + ANSI_RESET);
+                            System.out.println("-----------------");
+                            System.out.println("|  CANTO LINEA  |");
+                            System.out.println("-----------------");
                             System.out.println("\n");
                             System.out.println("El jugador " + jugador.getName() + " suma " + configuracion.getPuntosLinea() + " puntos");
                             System.out.println("\n");
-                            System.out.println(ANSI_GREEN + "SECUENCIA DE BOLAS DE LA LINEA: " + ComprobacionLinea[1] + ANSI_RESET);
+                            System.out.println("SECUENCIA DE BOLAS DE LA LINEA: " + ComprobacionLinea[1]);
                             
                             
                             
@@ -227,12 +227,12 @@ public class Bingo {
                          
                         if (Bingo  && LineaCantada == true) {
 
-                            System.out.println(ANSI_GREEN + "-----------------" + ANSI_RESET);
-                            System.out.println(ANSI_GREEN + "|  Â¡Â¡Â¡BINGO!!!  |" + ANSI_RESET);
-                            System.out.println(ANSI_GREEN + "-----------------" + ANSI_RESET);
+                            System.out.println("-----------------");
+                            System.out.println("|  ¡¡¡BINGO!!!  |");
+                            System.out.println("-----------------");
                             System.out.println("\n");
-                            System.out.println(ANSI_GREEN +"El jugador " + jugador.getName() + " suma:" + configuracion.getPuntosBingo() + " puntos" + ANSI_RESET);
-                            System.out.println(ANSI_CYAN + "Secuencia del cartÃ³n ganador: " + ComprobacionBingo[1] + ANSI_RESET);
+                            System.out.println("El jugador " + jugador.getName() + " suma:" + configuracion.getPuntosBingo() + " puntos");
+                            System.out.println("Secuencia del cartón ganador: " + ComprobacionBingo[1]);
                                       
                             jugador.setPuntos(configuracion.getPuntosBingo()+jugador.getPuntos());
                             
@@ -262,12 +262,13 @@ public class Bingo {
         
         // Despues de terminar todas las rondas se imprime el ganador
       
-        Jugador jugador =   Partida.getJugadores().get(0);
+        
    
         Map<Integer, ArrayList<String>> map = new HashMap<Integer,  ArrayList<String>>();
 
       
         ArrayList<String> ListaPorPuntuacion;
+        Jugador jugador = new Jugador();
         
         int PuntuacionMaxima = 0;
         
@@ -285,8 +286,7 @@ public class Bingo {
             {
             ListaPorPuntuacion = new ArrayList<String>();
             }
-
-
+            
             ListaPorPuntuacion.add(Partida.getJugadores().get(k).getName());
             
             map.put(Partida.getJugadores().get(k).getPuntos(),ListaPorPuntuacion);
@@ -297,7 +297,7 @@ public class Bingo {
         
         
         
-        System.out.println("El ganador es " + ListaPorPuntuacion + " con un total de " + jugador.getPuntos() + " puntos ");
+        System.out.println("El ganador es " + ListaPorPuntuacion + " con un total de " + PuntuacionMaxima + " puntos ");
         
         //Set<BolaAparecida> bAparecidas = new HashSet<>();
         /*Bombo b = new Bombo();
@@ -308,7 +308,7 @@ public class Bingo {
             System.out.println(bola.toString());
             System.out.println(b.toString());
         }
-        //Cuando se cante linea se comprueba que la linea entera estÃ© contenida en bAparecidas
+        //Cuando se cante linea se comprueba que la linea entera esté contenida en bAparecidas
         */
         
         

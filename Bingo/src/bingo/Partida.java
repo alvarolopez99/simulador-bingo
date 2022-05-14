@@ -25,13 +25,13 @@ public class Partida {
 
     }
     
-    public void añadirRondas(int numero){
+    public void anadirRondas(int numero){
         for(int i=0; i<numero; i++){
             listaRondas.add(new Ronda());
         }
     }
     
-    public void añadirJugadores(ArrayList<Jugador> j){
+    public void anadirJugadores(ArrayList<Jugador> j){
         listaJugadores = j;
     }
     

@@ -23,9 +23,9 @@ public class Ronda {
         bombo = new Bombo();
     }
 
-    public void AñadirBolaAparecida(Bola BolaAparecida) {
+    public void AnadirBolaAparecida(Bola BolaAparecida) {
 
-        BolasAparecidas.AñadirBolaAparecida(BolaAparecida);
+        BolasAparecidas.AnadirBolaAparecida(BolaAparecida);
 
     }
 

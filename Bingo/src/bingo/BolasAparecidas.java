@@ -21,7 +21,7 @@ public class BolasAparecidas {
     BolasAparecidas = new ArrayList<Integer>();
     } 
     
-    public void AñadirBolaAparecida(Bola BolaAparecida) {
+    public void AnadirBolaAparecida(Bola BolaAparecida) {
 
         BolasAparecidas.add(BolaAparecida.getNumero());
 
